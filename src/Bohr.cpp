@@ -69,7 +69,7 @@ int Bohr::get_suff_link(int v) {
 
 void Bohr::check(int v, int i) {
     for(int u=v;u!=0;u=get_suff_link(u)){
-        if (bohr[u].flag) std::cout << i-pattern[bohr[u].pat_num].length()+1 << " " << pattern[bohr[u].pat_num] << std::endl;
+        if (bohr[u].flag) res[i-pattern[bohr[u].pat_num].length()+1] = pattern[bohr[u].pat_num];
     }
 }
 
@@ -79,4 +79,10 @@ void Bohr::find_all_entries(const std::string &str) {
         u=get_auto_move(u, str[i] - 'a');
         check(u,i+1);
     }
+}
+
+std::string Bohr::to_str() {
+    std::string res_str;
+    for (auto el : res) { res_str += std::to_string(el.first) + ": " + el.second + "\n"; }
+    return res_str;
 }
