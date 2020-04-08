@@ -11,13 +11,12 @@
 
 #define k 26
 
-struct bohr_vrtx{
+struct bohr_vrtx { // TODO: Try to replace <int next_vrtx[k]> and <int auto_move[k]> with std::map or std::unordered_map
     int next_vrtx[k];
-    int pat_num;        // pat_num -- index of of pattern
-    int suff_link;
     int auto_move[k];   // remembering machine change of state
+    int suff_link;
+    int pat_num;        // pat_num -- index of of pattern
     int par;            // par - parent node in tree
-    int suff_flink;     // sufficient suffix link TODO: WTF?? (Never used)
     bool flag;          // true is the vrtx is the end of a word
     char symb;          // symbol in the edge between parent and current
 };

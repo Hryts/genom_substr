@@ -16,7 +16,6 @@ bohr_vrtx Bohr::make_bohr_vrtx(int p, char c) {
     v.suff_link=-1;
     v.par=p;
     v.symb=c;
-    v.suff_flink=-1;
     return v;
 }
 
@@ -51,9 +50,9 @@ int Bohr::get_suff_flink(int v) {
     if (bohr[v].suff_link==-1){ // Didn't count suffix yet
         int u=get_suff_link(v);
         if (u==0) // either v is a root, or suff_ling of points on the root
-            bohr[v].suff_flink=0;
+            ;
         else
-            bohr[v].suff_flink=(bohr[u].flag)?u:get_suff_flink(u);
+            (bohr[u].flag) ? u : get_suff_flink(u);
     }
     return bohr[v].suff_link;
 }
