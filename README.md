@@ -16,3 +16,10 @@ Research done
 
 Implement and test different decisions
 
+
+
+## Presentations
+
+
+
+- [**Presentation I**](https://docs.google.com/presentation/d/1yow5fSretDchJyX4T9DEEepWt9ZJUv94rC0p-LcquX0/edit#slide=id.g732a92fea1_0_5)
