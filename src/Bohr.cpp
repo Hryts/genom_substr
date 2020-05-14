@@ -12,10 +12,11 @@ bohr_vrtx Bohr::make_bohr_vrtx(int p, char c) {
     bohr_vrtx v;
     memset(v.next_vrtx, 255, sizeof(v.next_vrtx));
     memset(v.auto_move, 255, sizeof(v.auto_move));
-    v.flag=false;
-    v.suff_link=-1;
-    v.par=p;
-    v.symb=c;
+    v.flag = false;
+    v.suff_link = -1;
+    v.good_suff_link = -1;
+    v.par = p;
+    v.symb = c;
     return v;
 }
 
@@ -35,40 +36,40 @@ void Bohr::add_key(const std::string &s) {
 }
 
 int Bohr::get_auto_move(int v, char ch) {
-    if (bohr[v].auto_move[ch]==-1)
-        if (bohr[v].next_vrtx[ch]!=-1) // no machine change of state remembered
-            bohr[v].auto_move[ch]=bohr[v].next_vrtx[ch];
+    if (bohr[v].auto_move[ch] == -1)
+        if (bohr[v].next_vrtx[ch] != -1)  // no machine change of state remembered
+            bohr[v].auto_move[ch] = bohr[v].next_vrtx[ch];
+        else if (v == 0)
+            bohr[v].auto_move[ch] = 0;
         else
-        if (v==0)
-            bohr[v].auto_move[ch]=0;
-        else
-            bohr[v].auto_move[ch]=get_auto_move(get_suff_link(v), ch);
+            bohr[v].auto_move[ch] = get_auto_move(get_suff_link(v), ch);
     return bohr[v].auto_move[ch];
 }
 
-int Bohr::get_suff_flink(int v) {
-    if (bohr[v].suff_link==-1){ // Didn't count suffix yet
+int Bohr::get_good_suff_link(int v) {
+    if (bohr[v].good_suff_link == -1){ // Didn't count suffix yet
         int u=get_suff_link(v);
         if (u==0) // either v is a root, or suff_ling of points on the root
-            ;
+            bohr[v].good_suff_link = 0;
         else
-            (bohr[u].flag) ? u : get_suff_flink(u);
+            bohr[v].good_suff_link = (bohr[u].flag) ? u : get_good_suff_link(u);
     }
-    return bohr[v].suff_link;
+    return bohr[v].good_suff_link;
 }
 
 int Bohr::get_suff_link(int v) {
     if (bohr[v].suff_link==-1)
-        if (v==0||bohr[v].par==0)
+        if (v==0 || bohr[v].par==0)
             bohr[v].suff_link=0;
         else
-            bohr[v].suff_link=get_auto_move(get_suff_link(bohr[v].par), bohr[v].symb);
+            bohr[v].suff_link = get_auto_move(get_suff_link(bohr[v].par), bohr[v].symb);
     return bohr[v].suff_link;
 }
 
 void Bohr::check(int v, int i) {
-    for(int u=v;u!=0;u=get_suff_link(u)){
-        if (bohr[u].flag) res[i-pattern[bohr[u].pat_num].length()+1] = pattern[bohr[u].pat_num];
+    for(int u=v;u!=0;u=get_good_suff_link(u)){
+        if (bohr[u].flag)
+            res[pattern[bohr[u].pat_num]] += 1;
     }
 }
 
@@ -82,6 +83,6 @@ void Bohr::find_all_entries(const std::string &str) {
 
 std::string Bohr::to_str() {
     std::string res_str;
-    for (auto el : res) { res_str += std::to_string(el.first) + ": " + el.second + "\n"; }
+    for (auto el : res) { res_str += el.first + ": " + std::to_string(el.second) + "\n"; }
     return res_str;
 }
