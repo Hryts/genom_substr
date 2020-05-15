@@ -43,7 +43,7 @@ int main() {
     std::vector<std::thread> countingThreads;
 
     b.add_key("ATC");
-    b.add_key("CATTTGTTATATTGGATACAAGC");
+    b.add_key("CATTTGTTATATTGGATA/CAAGC");
     getConfig(config, threadNum);
     //std::thread markerReader(readMarkers, std::ref(b));
     readFile(config["infile"], genome);

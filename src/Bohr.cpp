@@ -68,8 +68,11 @@ int Bohr::get_suff_link(int v) {
 
 void Bohr::check(int v, int i, std::unordered_map<std::string, int> &res) {
     for(int u=v;u!=0;u=get_good_suff_link(u)){
-        if (bohr[u].flag)
-            //res[pattern[bohr[u].pat_num]] = 1;
+        if (bohr[u].flag) {
+//            res[pattern[bohr[u].pat_num]] = 1;
+            std::cout<<"+"<<std::endl;
+        }
+//            std::cout<<res.find(pattern[bohr[u].par])==res;
     }
 }
 
