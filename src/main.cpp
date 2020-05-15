@@ -42,14 +42,13 @@ int main() {
     std::string genome;
     std::vector<std::thread> countingThreads;
 
-    b.add_key("ATC");
-    b.add_key("CATTTGTTATATTGGATA/CAAGC");
     getConfig(config, threadNum);
-    //std::thread markerReader(readMarkers, std::ref(b));
+    std::thread markerReader(readMarkers, std::ref(b));
     readFile(config["infile"], genome);
-    //markerReader.join();
+    markerReader.join();
     std::vector<std::map<std::string, int>> result;
     int step = (int)genome.size() / threadNum;
+
     for(int i = 0; i < threadNum; i++){
         std::map<std::string, int> res;
         if(i != threadNum-1)
@@ -59,6 +58,8 @@ int main() {
 
         result.emplace_back(res);
     }
+
+    std::string().swap(genome);
 
     for(auto &thr : countingThreads){
         thr.join();

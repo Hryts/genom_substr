@@ -68,9 +68,8 @@ int Bohr::get_suff_link(int v) {
 
 void Bohr::check(int v, int i, std::map<std::string, int> &res) {
     for(int u=v;u!=0;u=get_good_suff_link(u)){
-        if (bohr[u].flag)
+        if (bohr[u].flag && res.find(pattern[bohr[u].pat_num]) == res.end())
             res[pattern[bohr[u].pat_num]] = 1;
-
 
     }
 }
