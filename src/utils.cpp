@@ -61,6 +61,8 @@ void readFile(const std::string &file, std::string& res){
         it++;
         res += *it;
     }
+
+    std::string().swap(str);
 }
 
 

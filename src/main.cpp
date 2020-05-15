@@ -5,6 +5,7 @@
 #include <vector>
 
 void readMarkers(Bohr& bohr){
+    int i = 0;
     const std::string markerFileName = "../input/markers.csv";
     std::ifstream f(markerFileName);
     std::string str;
@@ -23,11 +24,16 @@ void readMarkers(Bohr& bohr){
          it != e; it++) {
         it++;
         bohr.add_key(*it);
+        i++;
+        std::cout << *it <<std::endl;
+        if(i == 2)
+            break;
     }
 
+    //std::string().swap(str);
 }
 
-void calculate(Bohr &b, std::string str, std::map<std::string, int> &res){
+void calculate(Bohr &b, const std::string &str, std::map<std::string, int> &res){
     b.find_all_entries(str, res);
 }
 
@@ -45,6 +51,8 @@ int main() {
     getConfig(config, threadNum);
     std::thread markerReader(readMarkers, std::ref(b));
     readFile(config["infile"], genome);
+//    b.add_key("CATTTGTTATATTGGATACAAGC");
+//    b.add_key("ATCTACATTTGGGAATGTGAGT");
     markerReader.join();
     std::vector<std::map<std::string, int>> result;
     int step = (int)genome.size() / threadNum;
