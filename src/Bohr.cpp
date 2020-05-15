@@ -66,17 +66,16 @@ int Bohr::get_suff_link(int v) {
     return bohr[v].suff_link;
 }
 
-void Bohr::check(int v, int i, std::unordered_map<std::string, int> &res) {
+void Bohr::check(int v, int i, std::map<std::string, int> &res) {
     for(int u=v;u!=0;u=get_good_suff_link(u)){
-        if (bohr[u].flag) {
-//            res[pattern[bohr[u].pat_num]] = 1;
-            std::cout<<"+"<<std::endl;
-        }
-//            std::cout<<res.find(pattern[bohr[u].par])==res;
+        if (bohr[u].flag)
+            res[pattern[bohr[u].pat_num]] = 1;
+
+
     }
 }
 
-void Bohr::find_all_entries(const std::string &str, std::unordered_map<std::string, int> &res) {
+void Bohr::find_all_entries(const std::string &str, std::map<std::string, int> &res) {
     int u=0;
     for(int i=0; i < str.length(); ++i){
         u=get_auto_move(u, str[i] - 'A');

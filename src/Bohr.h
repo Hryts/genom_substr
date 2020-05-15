@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <string>
+#include <map>
 #include <unordered_map>
 
 struct bohr_vrtx { // TODO: Try to replace <int next_vrtx[k]> and <int auto_move[k]> with std::map or std::unordered_map
@@ -25,7 +26,7 @@ public:
 //    ~Bohr(); //TODO: think if destructor needed
     Bohr();
     void add_key(const std::string& s);
-    void find_all_entries(const std::string& str, std::unordered_map<std::string, int> &res);
+    void find_all_entries(const std::string& str, std::map<std::string, int> &res);
 
 private:
     std::vector<bohr_vrtx> bohr;
@@ -34,7 +35,7 @@ private:
     int get_auto_move(int v, char ch);
     int get_good_suff_link(int v);
     int get_suff_link(int v);
-    void check(int v,int i, std::unordered_map<std::string, int> &res);
+    void check(int v,int i, std::map<std::string, int> &res);
 };
 
 

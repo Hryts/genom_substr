@@ -27,7 +27,7 @@ void readMarkers(Bohr& bohr){
 
 }
 
-void calculate(Bohr &b, std::string str, std::unordered_map<std::string, int> &res){
+void calculate(Bohr &b, std::string str, std::map<std::string, int> &res){
     b.find_all_entries(str, res);
 }
 
@@ -48,10 +48,10 @@ int main() {
     //std::thread markerReader(readMarkers, std::ref(b));
     readFile(config["infile"], genome);
     //markerReader.join();
-    std::vector<std::unordered_map<std::string, int>> result;
+    std::vector<std::map<std::string, int>> result;
     int step = (int)genome.size() / threadNum;
     for(int i = 0; i < threadNum; i++){
-        std::unordered_map<std::string, int> res;
+        std::map<std::string, int> res;
         if(i != threadNum-1)
             countingThreads.emplace_back(calculate, std::ref(b), genome.substr(i*step, (i+1)*step + biggestMarkerSize), std::ref(res));
         else
