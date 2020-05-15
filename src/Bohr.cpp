@@ -23,7 +23,7 @@ bohr_vrtx Bohr::make_bohr_vrtx(int p, char c) {
 void Bohr::add_key(const std::string &s) {
     int num=0; // starting from zero
     for (int i = 0; i < s.length(); ++i){
-        char ch = s[i] - 'a'; // Get the index in alphabet TODO: find more efficient way (might be std::map)
+        char ch = s[i] - 'A'; // Get the index in alphabet TODO: find more efficient way (might be std::map)
         if (bohr[num].next_vrtx[ch] == -1){ // -1 - means there is no edge
             bohr.push_back(make_bohr_vrtx(num, ch));
             bohr[num].next_vrtx[ch] = bohr.size() - 1;
@@ -66,23 +66,17 @@ int Bohr::get_suff_link(int v) {
     return bohr[v].suff_link;
 }
 
-void Bohr::check(int v, int i) {
+void Bohr::check(int v, int i, std::unordered_map<std::string, int> &res) {
     for(int u=v;u!=0;u=get_good_suff_link(u)){
         if (bohr[u].flag)
-            res[pattern[bohr[u].pat_num]] += 1;
+            //res[pattern[bohr[u].pat_num]] = 1;
     }
 }
 
-void Bohr::find_all_entries(const std::string &str) {
+void Bohr::find_all_entries(const std::string &str, std::unordered_map<std::string, int> &res) {
     int u=0;
     for(int i=0; i < str.length(); ++i){
-        u=get_auto_move(u, str[i] - 'a');
-        check(u,i+1);
+        u=get_auto_move(u, str[i] - 'A');
+        check(u,i+1, res);
     }
-}
-
-std::string Bohr::to_str() {
-    std::string res_str;
-    for (auto el : res) { res_str += el.first + ": " + std::to_string(el.second) + "\n"; }
-    return res_str;
 }

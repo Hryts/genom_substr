@@ -1,0 +1,3 @@
+infile=../input/pseudo88.fasta
+outfile=../result/result.txt
+threadNum=4

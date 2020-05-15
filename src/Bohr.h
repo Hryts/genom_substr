@@ -9,11 +9,9 @@
 #include <string>
 #include <unordered_map>
 
-#define k 26
-
 struct bohr_vrtx { // TODO: Try to replace <int next_vrtx[k]> and <int auto_move[k]> with std::map or std::unordered_map
-    int next_vrtx[k];
-    int auto_move[k];   // remembering machine change of state
+    int next_vrtx[26];
+    int auto_move[26];   // remembering machine change of state
     int suff_link;
     int good_suff_link;
     int pat_num;        // pat_num -- index of of pattern
@@ -27,18 +25,16 @@ public:
 //    ~Bohr(); //TODO: think if destructor needed
     Bohr();
     void add_key(const std::string& s);
-    void find_all_entries(const std::string& str);
-    std::string to_str();
+    void find_all_entries(const std::string& str, std::unordered_map<std::string, int> &res);
 
 private:
     std::vector<bohr_vrtx> bohr;
     std::vector<std::string> pattern;
     bohr_vrtx make_bohr_vrtx(int p, char c);
-    std::unordered_map<std::string, int> res;
     int get_auto_move(int v, char ch);
     int get_good_suff_link(int v);
     int get_suff_link(int v);
-    void check(int v,int i);
+    void check(int v,int i, std::unordered_map<std::string, int> &res);
 };
 
 
