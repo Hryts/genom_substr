@@ -23,3 +23,5 @@ Implement and test different decisions
 
 
 - [**Presentation I**](https://docs.google.com/presentation/d/1yow5fSretDchJyX4T9DEEepWt9ZJUv94rC0p-LcquX0/edit#slide=id.g732a92fea1_0_5)
+- [**Presentation II**](https://docs.google.com/presentation/d/1yow5fSretDchJyX4T9DEEepWt9ZJUv94rC0p-LcquX0/edit#slide=id.g732a92fea1_3_4)
+- [**Presentation III**](https://docs.google.com/presentation/d/1-T6YDYSQbuGx_kSZbkI5jjgQxk5Gub2-RKH1w_ordxo/edit?usp=sharing)
