@@ -1,8 +1,13 @@
 #include <iostream>
 #include <vector>
+#ifdef __APPLE__
+    #include <OpenCL/cl.hpp>
+    #include <OpenCL/opencl.h>
+#else
+    #include <CL/cl.hpp>
+    #include <CL/opencl.h>
+#endif
 
-#include <CL/cl.hpp>
-#include <CL/opencl.h>
 
 static std::vector<std::pair<std::string, cl::Device>> getAvailableDevices_tmp() {
     // Hochu gpu
@@ -12,7 +17,7 @@ static std::vector<std::pair<std::string, cl::Device>> getAvailableDevices_tmp()
     std::vector<std::pair<std::string, cl::Device>> cpus;
 
     std::vector<cl::Platform> clplatforms;
-    cl::Platform::get(&clplatforms);0
+    cl::Platform::get(&clplatforms);
 
     for (const auto& platform : clplatforms) {
         try {
@@ -55,7 +60,7 @@ static std::vector<std::pair<std::string, cl::Device>> getAvailableDevices_tmp()
 std::vector<std::string> getAvailableDevices() {
     std::vector<std::string> devices;
     for (auto devicesKV : getAvailableDevices_tmp()) {
-        devices.emplace_back(devicesKV7);
+        devices.emplace_back(devicesKV.first);
     }
     return devices;
 }
