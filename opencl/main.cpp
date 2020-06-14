@@ -8,6 +8,8 @@
     #include <CL/opencl.h>
 #endif
 
+#include "utils.h"
+
 constexpr auto PROGRAM_PATH = "."; // Path to source file
 
 static std::vector<std::pair<std::string, cl::Device>> getAvailableDevices_tmp() {
