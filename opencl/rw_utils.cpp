@@ -2,7 +2,7 @@
 // Created by Bernadzikovskiy Slavik on 14.06.2020.
 //
 
-#include "utils.h"
+#include "rw_utils.h"
 #include <fstream>
 
 std::vector<char> readFile(const std::string& fileName) {

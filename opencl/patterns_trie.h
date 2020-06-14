@@ -65,6 +65,27 @@ std::set<int> search(PatternTrie* root, const std::string& subGenome)
     return patternIDs;
 }
 
+PatternTrie* initPatternsTrie(const std::string patternsFilePath){
+    auto patternsBuffer = readFile(patternsFilePath);
+    size_t coma = 0;
+    size_t eol = 0;
+    int id;
+
+    auto* res = new PatternTrie;
+
+    for (size_t i=0;i<patternsBuffer.size();++i){
+        if(patternsBuffer[i]==',') {
+            coma=i;
+            id = std::stoi(patternsBuffer.substr(eol, coma-eol));
+        }
+        if(patternsBuffer[i]=='LF') {
+            eol=i;
+            insert(res, patternsBuffer.substr(coma, eol-coma), id);
+        }
+    }
+    return res;
+}
+
 #define OPENCL_PATTERNS_TRIE_H
 
 #endif //OPENCL_PATTERNS_TRIE_H
