@@ -7,8 +7,10 @@
 
 #include <vector>
 #include <string>
+#include <unordered_map>
 
 std::vector<char> readFile(const std::string& fileName);
+std::unordered_map<size_t, std::string> readCSVMarkers(std::string pathToFile);
 
 
 #endif //GENOME_SUBSTR_UTILS_H

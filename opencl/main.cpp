@@ -37,11 +37,11 @@ int main() {
     const cl::Program::Sources sources = {{sourceBytes.data(), sourceBytes.size()}};
     cl::Program program = cl::Program(context, sources);
 
-    // Creating an output set
-    std::set<int> foundIDsResult;
+    // Creating an output vector
+    std::vector<size_t> foundIDsResult;
 
     // Initializing pattern trie structure
-    std::string patternsFilePath;
+    std::string patternsFilePath = "./data/markers.csv";
     auto* patternTrie = initPatternsTrie(patternsFilePath);
 
     // TODO: Read genomes

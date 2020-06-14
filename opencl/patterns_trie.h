@@ -11,7 +11,7 @@
 // Node to represent the ending of the pattern and an id of the pattern to identify what pattern was found
 
 struct PatternTrie {
-    int id = -1;
+    size_t id = 0;
     bool isEndOfPattern = false;
     std::unordered_map<char, PatternTrie*> children;
 };

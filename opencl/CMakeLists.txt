@@ -11,6 +11,6 @@ set(CMAKE_CXX_STANDARD 14)
 
 find_package(OpenCL)
 
-add_executable(opencl main.cpp rw_utils.cpp rw_utils.h opencl_utils.cpp opencl_utils.h)
+add_executable(opencl main.cpp rw_utils.cpp rw_utils.h opencl_utils.cpp opencl_utils.h result_struct.cpp result_struct.h)
 
 target_link_libraries(opencl ${OpenCL_Libraries})
