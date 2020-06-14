@@ -65,6 +65,12 @@ std::set<int> search(PatternTrie* root, const std::string& subGenome)
     return patternIDs;
 }
 
+std::string subVectorToStr(std::vector<char> vec, size_t from, size_t to) {
+    std::vector<char> subVector(vec.begin()+from, vec.begin()+to);
+    std::string strRes(subVector.begin(), subVector.end());
+    return strRes;
+}
+
 PatternTrie* initPatternsTrie(const std::string patternsFilePath){
     auto patternsBuffer = readFile(patternsFilePath);
     size_t coma = 0;
@@ -76,11 +82,11 @@ PatternTrie* initPatternsTrie(const std::string patternsFilePath){
     for (size_t i=0;i<patternsBuffer.size();++i){
         if(patternsBuffer[i]==',') {
             coma=i;
-            id = std::stoi(patternsBuffer.substr(eol, coma-eol));
+            id = std::stoi(subVectorToStr(patternsBuffer, eol, coma));
         }
-        if(patternsBuffer[i]=='LF') {
+        if(patternsBuffer[i]==10) { // TODO: sth instead of 10 here needed
             eol=i;
-            insert(res, patternsBuffer.substr(coma, eol-coma), id);
+            insert(res, subVectorToStr(patternsBuffer, coma, eol), id);
         }
     }
     return res;
