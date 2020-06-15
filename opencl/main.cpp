@@ -23,14 +23,6 @@ constexpr auto PROGRAM_PATH = "../kernels.cl"; // Path to source file
 // TODO: downloading test data
 // TODO: set timer (where?)
 
-typedef struct {
-    char ch;
-    int id;
-    int first_child;
-    int second_child;
-    int third_child;
-    int fourth_child;
-} Node;
 
 static std::vector<std::pair<std::string, cl::Device>> getAvailableDevices() {
     // Hochu gpu
@@ -107,8 +99,11 @@ int main() {
     std::vector<size_t> foundIDsResult;
 
     // Initializing pattern trie structure
-//    std::string patternsFilePath = "./data/markers.csv";
+    std::string patternsFilePath = "../data/markers.csv";
 //    auto* patternTrie = initPatternsTrie(patternsFilePath);
+    auto markers = readFile(patternsFilePath);
+    std::vector<Node> trie = markersToTrie(markers);
+//    std::cout<<patternsFilePath;
 
     std::vector<char> input;
     input.push_back('A');
