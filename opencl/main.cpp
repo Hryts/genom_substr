@@ -24,10 +24,10 @@ constexpr auto PROGRAM_PATH = "../kernels.cl"; // Path to source file
 // TODO: set timer (where?)
 
 typedef struct {
-    int first_child;
     short ch;
     int num;
     short id;
+    int first_child;
     int second_child;
     int third_child;
     int fourth_child;
@@ -128,7 +128,7 @@ int main() {
     Node fourth;
 
     top.ch = 'a';
-    top.id = 0;
+    top.id = 1;
     top.first_child = 1;
     top.second_child = 2;
     top.third_child = 3;
