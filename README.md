@@ -2,6 +2,13 @@
 
 Our project is a solution for scientists in genetics to perform string pattern matching while searching for genes in genomes in the fastest possible way. We have implemented the OpenCL Kernel using modified Parallel Failureless Aho-Corasick algorithm.
 
+### Acceleration and results
+
+INPUT: 989 genomes, x120 Mb, 1m markers
+DEVICE: Intel(R) Gen9 HD Graphics NEO
+TIME: ~40m
+ACCELERATED SCANNING BY: 13.5
+
 
 Benchmarks were taken from Python sequential Aho-Corasick algorithm that you can find [here] (https://github.com/abusix/ahocorapy).
 
