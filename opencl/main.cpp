@@ -105,6 +105,11 @@ int main() {
     auto markers = readFile(patternsFilePath);
     std::vector<Node> trie = markersToTrie(markers);
     std::vector<std::vector<char>> vectorizedTrie = trieToVec(trie);
+    for (auto i:markers){
+        std::cout<<i;
+    }
+
+    std::cout << "don" << std::endl;
 //    std::cout<<patternsFilePath;
 
     std::vector<char> input;

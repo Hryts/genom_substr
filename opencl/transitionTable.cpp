@@ -57,10 +57,11 @@ std::vector<Node> markersToTrie(std::vector<char> markers) {
         }
         if(markers[i]=='\n') {
             eol=i;
-            auto marker = subVectorToStr(markers, coma, eol);
+            auto marker = subVectorToStr(markers, coma+1, eol);
             updateTrie(res, marker, id);
         }
     }
+    return res;
 }
 
 std::vector<std::vector<char>> trieToVec(std::vector<Node> trie) {
