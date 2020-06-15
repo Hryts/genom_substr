@@ -119,8 +119,8 @@ int main() {
 
     std::vector<char> output(N);
 
-    for(auto i: vectorizedTrie[1]){
-        std::cout << i << std::endl;
+    for(auto i: vectorizedTrie[0]){
+        printf("%c\n", i);
     }
 
 //    std::vector<Node> trie;

@@ -98,7 +98,7 @@ void updateTrie(std::vector<Node>& trie, const std::string& word, size_t id) {
         trie.push_back(root);
     }
 
-    Node previousNode = trie[0];
+    Node *previousNodePointer = &trie[0];
 
     for (char i : word){
         int child;
@@ -117,14 +117,14 @@ void updateTrie(std::vector<Node>& trie, const std::string& word, size_t id) {
         currentNode.id=-1;
         currentNode.ch=i;
 
-        if (previousNode.children[child] == 0) {
-            previousNode.children[child] = trie.size();
+        if (previousNodePointer->children[child] == 0) {
+            previousNodePointer->children[child] = trie.size();
             trie.push_back(currentNode);
-            previousNode = currentNode;
+            previousNodePointer = &currentNode;
         }
         else {
-            previousNode = trie[previousNode.children[child]];
+            previousNodePointer = &trie[previousNodePointer->children[child]];
         }
     }
-    previousNode.id = id;
+    previousNodePointer->id = id;
 }
