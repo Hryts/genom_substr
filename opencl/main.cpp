@@ -111,16 +111,12 @@ int main() {
     input.push_back('A');
     input.push_back('T');
     input.push_back('C');
-    input.push_back('T');
-    input.push_back('A');
-    input.push_back('T');
-    input.push_back('T');
     input.push_back('G');
 
     std::vector<char> output(N);
 
-    for(auto i: vectorizedTrie[0]){
-        printf("%c\n", i);
+    for(auto i: vectorizedTrie[1]){
+        printf("%d\n", i);
     }
 
 //    std::vector<Node> trie;

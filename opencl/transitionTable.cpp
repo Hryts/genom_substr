@@ -94,7 +94,7 @@ void updateTrie(std::vector<Node>& trie, const std::string& word, size_t id) {
     if (trie.empty()) {
         Node root{};
         root.ch='!';
-        root.id=-1;
+        root.id=0;
         trie.push_back(root);
     }
 
@@ -117,7 +117,7 @@ void updateTrie(std::vector<Node>& trie, const std::string& word, size_t id) {
         child_tmp = child;
 
         Node currentNode{};
-        currentNode.id=-1;
+        currentNode.id=0;
         currentNode.ch=i;
 
         if (previousNodePointer->children[child] == 0) {
