@@ -21,7 +21,7 @@
 
  struct Node{
      short ch;
-     size_t id;
+     int id;
      size_t children[4];
  };
 
