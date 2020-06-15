@@ -109,13 +109,19 @@ int main() {
 
     std::vector<char> input;
     input.push_back('A');
+    input.push_back('T');
     input.push_back('C');
+    input.push_back('T');
     input.push_back('A');
     input.push_back('T');
     input.push_back('T');
     input.push_back('G');
 
     std::vector<char> output(N);
+
+    for(auto i: vectorizedTrie[1]){
+        std::cout << i << std::endl;
+    }
 
 //    std::vector<Node> trie;
 //
