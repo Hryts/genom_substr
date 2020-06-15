@@ -24,9 +24,8 @@ constexpr auto PROGRAM_PATH = "../kernels.cl"; // Path to source file
 // TODO: set timer (where?)
 
 typedef struct {
-    short ch;
-    int num;
-    short id;
+    char ch;
+    int id;
     int first_child;
     int second_child;
     int third_child;
@@ -119,58 +118,70 @@ int main() {
 
     std::vector<char> output(N);
 
-    std::vector<Node> trie;
+//    std::vector<Node> trie;
+//
+//    Node top;
+//    Node first;
+//    Node second;
+//    Node third;
+//    Node fourth;
+//
+//    top.ch = 'a';
+//    top.id = 1;
+//    top.first_child = 1;
+//    top.second_child = 2;
+//    top.third_child = 3;
+//    top.fourth_child = 4;
+//
+//    first.ch = 'A';
+//    first.id = 0;
+//    first.first_child = 0;
+//    first.second_child = 0;
+//    first.third_child = 0;
+//    first.fourth_child = 0;
+//
+//    second.ch = 'C';
+//    second.id = 0;
+//    second.first_child = 0;
+//    second.second_child = 0;
+//    second.third_child = 0;
+//    second.fourth_child = 0;
+//
+//    third.ch = 'T';
+//    third.id = 0;
+//    third.first_child = 0;
+//    third.second_child = 0;
+//    third.third_child = 0;
+//    third.fourth_child = 0;
+//
+//    fourth.ch = 'G';
+//    fourth.id = 1;
+//    fourth.first_child = 0;
+//    fourth.second_child = 0;
+//    fourth.third_child = 0;
+//    fourth.fourth_child = 0;
+//
+//    trie.push_back(top);
+//    trie.push_back(first);
+//    trie.push_back(second);
+//    trie.push_back(third);
+//    trie.push_back(fourth);
 
-    Node top;
-    Node first;
-    Node second;
-    Node third;
-    Node fourth;
-
-    top.ch = 'a';
-    top.id = 1;
-    top.first_child = 1;
-    top.second_child = 2;
-    top.third_child = 3;
-    top.fourth_child = 4;
-
-    first.ch = 'A';
-    first.id = 0;
-    first.first_child = 0;
-    first.second_child = 0;
-    first.third_child = 0;
-    first.fourth_child = 0;
-
-    second.ch = 'C';
-    second.id = 0;
-    second.first_child = 0;
-    second.second_child = 0;
-    second.third_child = 0;
-    second.fourth_child = 0;
-
-    third.ch = 'T';
-    third.id = 0;
-    third.first_child = 0;
-    third.second_child = 0;
-    third.third_child = 0;
-    third.fourth_child = 0;
-
-    fourth.ch = 'G';
-    fourth.id = 1;
-    fourth.first_child = 0;
-    fourth.second_child = 0;
-    fourth.third_child = 0;
-    fourth.fourth_child = 0;
-
-    trie.push_back(top);
-    trie.push_back(first);
-    trie.push_back(second);
-    trie.push_back(third);
-    trie.push_back(fourth);
-
+    std::vector<char> chs = {'0', 'A', 'C', 'T', 'G'};
+    std::vector<size_t> ids = {0, 0, 0, 0, 1};
+    std::vector<size_t> firsts = {1, 0, 0, 0, 0};
+    std::vector<size_t> seconds = {2, 0, 0, 0, 0};
+    std::vector<size_t> thirds = {3, 0, 0, 0, 0};
+    std::vector<size_t> fourths = {4, 0, 0, 0, 0};
 
     cl::Buffer inputBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, input.size(), input.data());
-    cl::Buffer trieBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, trie.size(), trie.data());
+    cl::Buffer chsBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, chs.size(), chs.data());
+    cl::Buffer idsBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, ids.size(), ids.data());
+    cl::Buffer firstsBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, firsts.size(), firsts.data());
+    cl::Buffer secondsBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, seconds.size(), seconds.data());
+    cl::Buffer thirdsBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, thirds.size(), thirds.data());
+    cl::Buffer fourthsBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, fourths.size(), fourths.data());
+//    cl::Buffer trieBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, trie.size(), trie.data());
     cl::Buffer outputBuffer(context, CL_MEM_READ_WRITE, output.size());
 
     // TODO: Read genomes
@@ -181,7 +192,12 @@ int main() {
     add.setArg(0, static_cast<u_long >(N));
     add.setArg(1, inputBuffer);
     add.setArg(2, outputBuffer);
-    add.setArg(3, trieBuffer);
+    add.setArg(3, chsBuffer);
+    add.setArg(4, idsBuffer);
+    add.setArg(5, firstsBuffer);
+    add.setArg(6, secondsBuffer);
+    add.setArg(7, thirdsBuffer);
+    add.setArg(8, fourthsBuffer);
 
     queue.enqueueNDRangeKernel(add, cl::NullRange, N, cl::NullRange);
 
