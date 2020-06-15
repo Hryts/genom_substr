@@ -1,4 +1,6 @@
-__kernel void add(ulong n, global const double *a, double *b) {
+__kernel void add(ulong n, global const double *a, global double *b) {
     size_t i = get_global_id(0);
-    b[i] = a[i] + 1;
+    if(i < n) {
+        b[i] = a[i] + 1;
+    }
 }
