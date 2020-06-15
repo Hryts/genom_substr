@@ -92,6 +92,16 @@ PatternTrie* initPatternsTrie(const std::string patternsFilePath){
     return res;
 }
 
+struct Node{
+    short ch;
+    size_t id;
+    size_t children[4];
+};
+
+void updateTrie(std::vector<Node>& trie, std::string word, size_t id);
+
+std::vector<Node> markersToTrie(std::vector<char> markers);
+
 #define OPENCL_PATTERNS_TRIE_H
 
 #endif //OPENCL_PATTERNS_TRIE_H
