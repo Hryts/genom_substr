@@ -23,6 +23,16 @@ constexpr auto PROGRAM_PATH = "../kernels.cl"; // Path to source file
 // TODO: downloading test data
 // TODO: set timer (where?)
 
+typedef struct {
+    int first_child;
+    short ch;
+    int num;
+    short id;
+    int second_child;
+    int third_child;
+    int fourth_child;
+} Node;
+
 static std::vector<std::pair<std::string, cl::Device>> getAvailableDevices() {
     // Hochu gpu
     std::vector<std::pair<std::string, cl::Device>> devices;
@@ -109,8 +119,60 @@ int main() {
 
     std::vector<char> output(N);
 
+    std::vector<Node> trie;
+
+    Node top;
+    Node first;
+    Node second;
+    Node third;
+    Node fourth;
+
+    top.ch = 'a';
+    top.id = 0;
+    top.first_child = 1;
+    top.second_child = 2;
+    top.third_child = 3;
+    top.fourth_child = 4;
+
+    first.ch = 'A';
+    first.id = 0;
+    first.first_child = 0;
+    first.second_child = 0;
+    first.third_child = 0;
+    first.fourth_child = 0;
+
+    second.ch = 'C';
+    second.id = 0;
+    second.first_child = 0;
+    second.second_child = 0;
+    second.third_child = 0;
+    second.fourth_child = 0;
+
+    third.ch = 'T';
+    third.id = 0;
+    third.first_child = 0;
+    third.second_child = 0;
+    third.third_child = 0;
+    third.fourth_child = 0;
+
+    fourth.ch = 'G';
+    fourth.id = 1;
+    fourth.first_child = 0;
+    fourth.second_child = 0;
+    fourth.third_child = 0;
+    fourth.fourth_child = 0;
+
+    trie.push_back(top);
+    trie.push_back(first);
+    trie.push_back(second);
+    trie.push_back(third);
+    trie.push_back(fourth);
+
+
     cl::Buffer inputBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, input.size(), input.data());
+    cl::Buffer trieBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, trie.size(), trie.data());
     cl::Buffer outputBuffer(context, CL_MEM_READ_WRITE, output.size());
+
     // TODO: Read genomes
     // TODO: setArg to kernel
 
@@ -119,15 +181,16 @@ int main() {
     add.setArg(0, static_cast<u_long >(N));
     add.setArg(1, inputBuffer);
     add.setArg(2, outputBuffer);
+    add.setArg(3, trieBuffer);
 
     queue.enqueueNDRangeKernel(add, cl::NullRange, N, cl::NullRange);
 
     // Get result back to host.
     queue.enqueueReadBuffer(outputBuffer, CL_TRUE, 0, output.size(), output.data());
 
-    for(auto &res : output){
-        std::cout << res << std::endl;
-    }
+//    for(auto &res : output){
+//        std::cout << res << std::endl;
+//    }
 
     // TODO: Merge
     // TODO: create output matrix file

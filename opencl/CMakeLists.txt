@@ -28,6 +28,6 @@ find_package(OpenCL)
 
 include_directories(${Boost_INCLUDE_DIRS} )
 
-add_executable(opencl main.cpp rw_utils.cpp rw_utils.h opencl_utils.cpp opencl_utils.h transitionTable.cpp transitionTable.h)
+add_executable(opencl main.cpp rw_utils.cpp rw_utils.h opencl_utils.cpp opencl_utils.h)
 
 target_link_libraries(opencl ${OpenCL_Libraries} ${LibArchive} ${Boost_LIBRARIES})
