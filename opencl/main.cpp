@@ -168,7 +168,7 @@ int main() {
 //    trie.push_back(fourth);
 
     std::vector<char> chs = {'0', 'A', 'C', 'T', 'G'};
-    std::vector<size_t> ids = {0, 0, 0, 0, 1};
+    std::vector<size_t> idens = {0, 0, 0, 0, 1};
     std::vector<size_t> firsts = {1, 0, 0, 0, 0};
     std::vector<size_t> seconds = {2, 0, 0, 0, 0};
     std::vector<size_t> thirds = {3, 0, 0, 0, 0};
@@ -176,7 +176,7 @@ int main() {
 
     cl::Buffer inputBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, input.size(), input.data());
     cl::Buffer chsBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, chs.size(), chs.data());
-    cl::Buffer idsBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, ids.size(), ids.data());
+    cl::Buffer idsBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, idens.size(), idens.data());
     cl::Buffer firstsBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, firsts.size(), firsts.data());
     cl::Buffer secondsBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, seconds.size(), seconds.data());
     cl::Buffer thirdsBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, thirds.size(), thirds.data());
