@@ -109,12 +109,12 @@ int main() {
 
     std::vector<char> output(N);
 
-    cl::Buffer inputBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, input.size() * sizeof(char), input.data());
-    cl::Buffer outputBuffer(context, CL_MEM_READ_WRITE, output.size() * sizeof(char));
+    cl::Buffer inputBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, input.size(), input.data());
+    cl::Buffer outputBuffer(context, CL_MEM_READ_WRITE, output.size());
     // TODO: Read genomes
     // TODO: setArg to kernel
 
-    queue.enqueueWriteBuffer(inputBuffer, CL_TRUE, 0, input.size() * sizeof(char), input.data());
+    queue.enqueueWriteBuffer(inputBuffer, CL_TRUE, 0, input.size(), input.data());
 
     add.setArg(0, static_cast<u_long >(N));
     add.setArg(1, inputBuffer);
@@ -123,7 +123,7 @@ int main() {
     queue.enqueueNDRangeKernel(add, cl::NullRange, N, cl::NullRange);
 
     // Get result back to host.
-    queue.enqueueReadBuffer(outputBuffer, CL_TRUE, 0, output.size() * sizeof(char), output.data());
+    queue.enqueueReadBuffer(outputBuffer, CL_TRUE, 0, output.size(), output.data());
 
     for(auto &res : output){
         std::cout << res << std::endl;
