@@ -100,7 +100,7 @@ int main() {
     std::vector<size_t> foundIDsResult;
 
     // Initializing pattern trie structure
-    std::string patternsFilePath = "../data/markers.csv";
+    std::string patternsFilePath = "../data/markers2.csv";
 //    auto* patternTrie = initPatternsTrie(patternsFilePath);
     auto markers = readFile(patternsFilePath);
     std::vector<Node> trie = markersToTrie(markers);

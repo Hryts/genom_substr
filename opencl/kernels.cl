@@ -59,7 +59,8 @@ __kernel void add(ulong n, global const char *input, global char *output, global
             else {
                 nextIndex = childIndex;
                 if(currentIndex >= n) return;
-                if (ids[nextIndex] != 0) printf("%d\n", ids[nextIndex]);
+
+                if (ids[nextIndex] != -1) printf("%d\n", ids[nextIndex]);
                 currentIndex++;
                 currentLetter = input[currentIndex];
             }
