@@ -112,9 +112,9 @@ int main() {
 
     std::vector<char> input;
     input.push_back('A');
-    input.push_back('B');
     input.push_back('C');
-    input.push_back('D');
+    input.push_back('T');
+    input.push_back('G');
 
     std::vector<char> output(N);
 

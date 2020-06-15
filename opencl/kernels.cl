@@ -41,7 +41,6 @@
 
 __kernel void add(ulong n, global const char *input, global char *output, global char *chs, global size_t *ids, global size_t *firsts, global size_t *seconds, global size_t *thirds, global size_t *fourths) {
     size_t currentIndex = get_global_id(0);
-    printf("%d", currentIndex);
     if(currentIndex < n) {
         size_t nextIndex = 0;
         char currentLetter = input[currentIndex];
@@ -50,19 +49,24 @@ __kernel void add(ulong n, global const char *input, global char *output, global
         //    printf("%c", currentNode.ch);
 
         while(true) {
-//            printf("%c", currentNode.ch);
-            if(currentLetter == 'A') childIndex = firsts[nextIndex];
-            if(currentLetter == 'C') childIndex = seconds[nextIndex];
-            if(currentLetter == 'T') childIndex = thirds[nextIndex];
-            if(currentLetter == 'G') childIndex = fourths[nextIndex];
+            printf("%c", currentLetter);
+            if(currentLetter == 'A'){
+                childIndex = firsts[nextIndex];
+            }
+            else if(currentLetter == 'C') childIndex = seconds[nextIndex];
+            else if(currentLetter == 'T') childIndex = thirds[nextIndex];
+            else if(currentLetter == 'G') childIndex = fourths[nextIndex];
+            else return;
             //        printf("%d", childIndex);
 
             if(childIndex == 0) return;
             else {
-                currentIndex++;
-                currentLetter = input[currentIndex];
-                if (ids[nextIndex] != 0) printf("%d\n", ids[nextIndex]);
                 nextIndex = childIndex;
+                if(currentIndex >= n) return;
+                currentLetter = input[currentIndex];
+//                printf("%d", nextIndex);
+                if (ids[nextIndex] != 0) printf("%d\n", ids[nextIndex]);
+                currentIndex++;
             }
         }
     }
