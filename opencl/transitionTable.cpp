@@ -91,35 +91,41 @@ std::vector<std::vector<char>> trieToVec(std::vector<Node> trie) {
 }
 
 void updateTrie(std::vector<Node>& trie, const std::string& word, size_t id) {
+
     if (trie.empty()) {
         Node root{};
         root.ch='!';
-        root.id=0;
+        root.id=-1;
         trie.push_back(root);
     }
 
     Node *previousNodePointer = &trie[0];
     int child_tmp;
 
-    for (char i : word){
+    for (int i = 0; i < word.size();++i){
         int child;
-        char letter = i;
+        char letter = word[i];
 
-        if (letter == 'A')
+        if (letter == 'A') {
             child = 0;
-        else if (letter == 'C')
+        }
+        else if (letter == 'C') {
             child = 1;
-        else if (letter == 'T')
+        }
+        else if (letter == 'T') {
             child = 2;
-        else
+        }
+        else {
             child = 3;
-
-        child_tmp = child;
+        }
 
         Node currentNode{};
-        currentNode.id=0;
+        currentNode.id=-1;
         currentNode.ch=i;
 
+        if (i == word.size()-1) {
+            currentNode.id = id;
+        }
         if (previousNodePointer->children[child] == 0) {
             previousNodePointer->children[child] = trie.size();
             trie.push_back(currentNode);
@@ -129,5 +135,5 @@ void updateTrie(std::vector<Node>& trie, const std::string& word, size_t id) {
             previousNodePointer = &trie[previousNodePointer->children[child]];
         }
     }
-    trie[previousNodePointer->children[child_tmp]].id = id;
+//    trie[previousNodePointer->children[child_tmp]].id = id;
 }
