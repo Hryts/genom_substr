@@ -100,7 +100,7 @@ int main() {
     std::vector<size_t> foundIDsResult;
 
     // Initializing pattern trie structure
-    std::string patternsFilePath = "../data/markers.csv";
+    std::string patternsFilePath = "../data/markers2.csv";
 //    auto* patternTrie = initPatternsTrie(patternsFilePath);
     auto markers = readFile(patternsFilePath);
     std::vector<Node> trie = markersToTrie(markers);
@@ -111,16 +111,12 @@ int main() {
     input.push_back('A');
     input.push_back('T');
     input.push_back('C');
-    input.push_back('T');
-    input.push_back('A');
-    input.push_back('T');
-    input.push_back('T');
     input.push_back('G');
 
     std::vector<char> output(N);
 
-    for(auto i: vectorizedTrie[0]){
-        printf("%c\n", i);
+    for(auto i: vectorizedTrie[1]){
+        printf("%d\n", i);
     }
 
 //    std::vector<Node> trie;
