@@ -17,11 +17,59 @@
 #include "patterns_trie.h"
 
 
-constexpr auto PROGRAM_PATH = "."; // Path to source file
+constexpr auto PROGRAM_PATH = "../kernels.cl"; // Path to source file
 
 // TODO: config input data?
 // TODO: downloading test data
 // TODO: set timer (where?)
+
+static std::vector<std::pair<std::string, cl::Device>> getAvailableDevices() {
+    // Hochu gpu
+    std::vector<std::pair<std::string, cl::Device>> devices;
+
+    std::vector<std::pair<std::string, cl::Device>> accelerators;
+    std::vector<std::pair<std::string, cl::Device>> cpus;
+
+    std::vector<cl::Platform> clplatforms;
+    cl::Platform::get(&clplatforms);
+
+    for (const auto& platform : clplatforms) {
+        try {
+            std::vector<cl::Device> cldevices;
+            platform.getDevices(CL_DEVICE_TYPE_ALL, &cldevices);
+            for (const auto& device : cldevices) {
+                const cl_device_type type = device.getInfo<CL_DEVICE_TYPE>();
+                std::string name = device.getInfo<CL_DEVICE_NAME>();
+                if (type == CL_DEVICE_TYPE_GPU) {
+                    name = "OpenCL:GPU[" +
+                           std::to_string(devices.size()) +
+                           "]:" + name;
+                    devices.emplace_back(name, device);
+                } else if (type == CL_DEVICE_TYPE_ACCELERATOR) {
+                    name = "OpenCL:ACCELERATOR[" +
+                           std::to_string(accelerators.size()) +
+                           "]:" + name;
+                    accelerators.emplace_back(name, device);
+                } else if (type == CL_DEVICE_TYPE_CPU) {
+                    name = "OpenCL:CPU[" +
+                           std::to_string(cpus.size()) +
+                           "]:" + name;
+                    cpus.emplace_back(name, device);
+                }
+            }
+        } catch (...) {
+            // Ne chipay
+        }
+    }
+
+    // Add vsilyake gavno (ne gpu)
+    devices.insert(devices.cend(), std::make_move_iterator(accelerators.cbegin()),
+                   std::make_move_iterator(accelerators.cend()));
+    devices.insert(devices.cend(), std::make_move_iterator(cpus.cbegin()),
+                   std::make_move_iterator(cpus.cend()));
+
+    return devices;
+}
 
 int main() {
     // Initializing OpenCL space
@@ -36,18 +84,44 @@ int main() {
     auto sourceBytes = readFile(PROGRAM_PATH);
     const cl::Program::Sources sources = {{sourceBytes.data(), sourceBytes.size()}};
     cl::Program program = cl::Program(context, sources);
+    cl::CommandQueue queue(context, device);
+
+    program.build();
+
+    cl::Kernel add(program, "add");
 
     // Creating an output vector
     std::vector<size_t> foundIDsResult;
 
     // Initializing pattern trie structure
-    std::string patternsFilePath = "./data/markers.csv";
-    auto* patternTrie = initPatternsTrie(patternsFilePath);
+//    std::string patternsFilePath = "./data/markers.csv";
+//    auto* patternTrie = initPatternsTrie(patternsFilePath);
 
+    std::vector<char> input;
+    input.push_back('A');
+    input.push_back('B');
+    input.push_back('C');
+    input.push_back('D');
+
+    std::vector<char> output(4);
+
+    cl::Buffer inputBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, input.size() * sizeof(char), input.data());
+    cl::Buffer outputBuffer(context, CL_MEM_READ_WRITE, output.size() * sizeof(char));
     // TODO: Read genomes
     // TODO: setArg to kernel
 
-    pfacKernel = cl::Kernel(program, "our_pfac");
+    add.setArg(0, 4);
+    add.setArg(1, inputBuffer);
+    add.setArg(2, outputBuffer);
+
+    queue.enqueueNDRangeKernel(add, cl::NullRange, 4, cl::NullRange);
+
+    // Get result back to host.
+    queue.enqueueReadBuffer(outputBuffer, CL_TRUE, 0, output.size() * sizeof(char), output.data());
+
+    for(auto &res : output){
+        std::cout << res << std::endl;
+    }
 
     // TODO: Merge
     // TODO: create output matrix file
