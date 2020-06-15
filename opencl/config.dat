@@ -1,0 +1,4 @@
+genome_file=../data/input.txt
+markers_file=../data/markers.csv
+kernel_file=../kernels.cl
+output_file=../output/result.txt
