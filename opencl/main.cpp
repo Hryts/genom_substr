@@ -100,21 +100,18 @@ int main() {
     std::vector<size_t> foundIDsResult;
 
     // Initializing pattern trie structure
-    std::string patternsFilePath = "../data/markers.csv";
+    std::string patternsFilePath = "../data/markers2.csv";
 //    auto* patternTrie = initPatternsTrie(patternsFilePath);
     auto markers = readFile(patternsFilePath);
     std::vector<Node> trie = markersToTrie(markers);
     std::vector<std::vector<char>> vectorizedTrie = trieToVec(trie);
-    for (auto i:markers){
-        std::cout<<i;
-    }
-
-    std::cout << "don" << std::endl;
 //    std::cout<<patternsFilePath;
 
     std::vector<char> input;
     input.push_back('A');
     input.push_back('C');
+    input.push_back('A');
+    input.push_back('T');
     input.push_back('T');
     input.push_back('G');
 
@@ -169,12 +166,12 @@ int main() {
 //    trie.push_back(third);
 //    trie.push_back(fourth);
 
-    std::vector<char> chs = {'0', 'A', 'C', 'T', 'G'};
-    std::vector<char> idens = {0, 0, 0, 0, 1};
-    std::vector<char> firsts = {1, 0, 0, 0, 0};
-    std::vector<char> seconds = {2, 0, 0, 0, 0};
-    std::vector<char> thirds = {3, 0, 0, 0, 0};
-    std::vector<char> fourths = {4, 0, 0, 0, 0};
+    std::vector<char> chs = vectorizedTrie[0];
+    std::vector<char> idens = vectorizedTrie[1];
+    std::vector<char> firsts = vectorizedTrie[2];
+    std::vector<char> seconds = vectorizedTrie[3];
+    std::vector<char> thirds = vectorizedTrie[4];
+    std::vector<char> fourths = vectorizedTrie[5];
 
     cl::Buffer inputBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, input.size(), input.data());
     cl::Buffer chsBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, chs.size(), chs.data());
@@ -183,7 +180,6 @@ int main() {
     cl::Buffer secondsBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, seconds.size(), seconds.data());
     cl::Buffer thirdsBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, thirds.size(), thirds.data());
     cl::Buffer fourthsBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, fourths.size(), fourths.data());
-//    cl::Buffer trieBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, trie.size(), trie.data());
     cl::Buffer outputBuffer(context, CL_MEM_READ_WRITE, output.size());
 
     // TODO: Read genomes
