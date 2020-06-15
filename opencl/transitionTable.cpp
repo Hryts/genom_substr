@@ -6,6 +6,8 @@
 #include "transitionTable.h"
 //#include "patterns_trie.h"
 
+void updateTrie(std::vector<Node>& trie, const std::string& word, size_t id);
+
 std::string subVectorToStr(std::vector<char> vec, size_t from, size_t to) {
     std::vector<char> subVector(vec.begin()+from, vec.begin()+to);
     std::string strRes(subVector.begin(), subVector.end());
@@ -61,13 +63,13 @@ std::vector<Node> markersToTrie(std::vector<char> markers) {
     }
 }
 
-std::vector<std::vector<size_t>> trieToVec(std::vector<Node> trie) {
-    std::vector chars;
-    std::vector ids;
-    std::vector firsts;
-    std::vector seconds;
-    std::vector thirds;
-    std::vector fourths;
+std::vector<std::vector<char>> trieToVec(std::vector<Node> trie) {
+    std::vector<char> chars;
+    std::vector<char> ids;
+    std::vector<char> firsts;
+    std::vector<char> seconds;
+    std::vector<char> thirds;
+    std::vector<char> fourths;
     for (auto node:trie){
         chars.push_back(node.ch);
         ids.push_back(node.id);
@@ -76,7 +78,7 @@ std::vector<std::vector<size_t>> trieToVec(std::vector<Node> trie) {
         thirds.push_back(node.children[2]);
         fourths.push_back(node.children[3]);
     }
-    std::vector<std::vector<size_t>> res;
+    std::vector<std::vector<char>> res;
     res.push_back(chars);
     res.push_back(ids);
     res.push_back(firsts);

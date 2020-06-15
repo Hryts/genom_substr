@@ -15,6 +15,7 @@
 #include "rw_utils.h"
 #include "opencl_utils.h"
 #include "patterns_trie.h"
+#include "transitionTable.h"
 
 
 constexpr auto PROGRAM_PATH = "../kernels.cl"; // Path to source file
@@ -103,6 +104,7 @@ int main() {
 //    auto* patternTrie = initPatternsTrie(patternsFilePath);
     auto markers = readFile(patternsFilePath);
     std::vector<Node> trie = markersToTrie(markers);
+    std::vector<std::vector<char>> vectorizedTrie = trieToVec(trie);
 //    std::cout<<patternsFilePath;
 
     std::vector<char> input;

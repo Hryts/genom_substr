@@ -25,9 +25,9 @@
      size_t children[4];
  };
 
- void updateTrie(std::vector<Node>& trie, std::string word, size_t id);
+// void updateTrie(std::vector<Node>& trie, std::string word, size_t id);
 
  std::vector<Node> markersToTrie(std::vector<char> markers);
-
+ std::vector<std::vector<char>> trieToVec(std::vector<Node> trie);
 
 #endif //OPENCL_TRANSITIONTABLE_H
