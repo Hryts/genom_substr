@@ -2,11 +2,11 @@
 // Created by hryts on 6/15/20.
 //
 
-//#ifndef OPENCL_TRANSITIONTABLE_H
-//#define OPENCL_TRANSITIONTABLE_H
-//
-//#include <vector>
-//
+#ifndef OPENCL_TRANSITIONTABLE_H
+#define OPENCL_TRANSITIONTABLE_H
+
+#include <vector>
+
 //struct Transition {
 //    int ch;
 //    size_t nextState;
@@ -18,5 +18,16 @@
 //};
 //
 //void load(const std::vector<char>& buffer);
+
+ struct Node{
+     short ch;
+     size_t id;
+     size_t children[4];
+ };
+
+ void updateTrie(std::vector<Node>& trie, std::string word, size_t id);
+
+ std::vector<Node> markersToTrie(std::vector<char> markers);
+
 
 #endif //OPENCL_TRANSITIONTABLE_H
