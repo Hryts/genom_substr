@@ -39,7 +39,7 @@
 //}
 
 
-__kernel void add(ulong n, global const char *input, global char *output, global char *chs, global size_t *ids, global size_t *firsts, global size_t *seconds, global size_t *thirds, global size_t *fourths) {
+__kernel void add(ulong n, global const char *input, global char *output, global char *chs, global cl_int *ids, global cl_int *firsts, global cl_int *seconds, global cl_int *thirds, global cl_int *fourths) {
 //    size_t currentIndex = get_global_id(0);
 //    if(currentIndex < n) {
 //        size_t nextIndex = 0;
@@ -64,7 +64,7 @@ __kernel void add(ulong n, global const char *input, global char *output, global
 //                nextIndex = childIndex;
 //                if(currentIndex >= n) return;
 ////                printf("%d", nextIndex);
-//                if (ids[nextIndex] != 0) printf("%d\n", ids[nextIndex]);
+//                if (ids[nextIndex] != 0) printf("%lu\n", ids[nextIndex]);
 //                printf("%c%d%d\n", currentLetter, nextIndex, ids[4]);
 //                currentIndex++;
 //                currentLetter = input[currentIndex];

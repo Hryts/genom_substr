@@ -168,11 +168,11 @@ int main() {
 //    trie.push_back(fourth);
 
     std::vector<char> chs = {'0', 'A', 'C', 'T', 'G'};
-    std::vector<size_t> idens = {0, 0, 0, 0, 1};
-    std::vector<size_t> firsts = {1, 0, 0, 0, 0};
-    std::vector<size_t> seconds = {2, 0, 0, 0, 0};
-    std::vector<size_t> thirds = {3, 0, 0, 0, 0};
-    std::vector<size_t> fourths = {4, 0, 0, 0, 0};
+    std::vector<int> idens = {0, 0, 0, 0, 1};
+    std::vector<int> firsts = {1, 0, 0, 0, 0};
+    std::vector<int> seconds = {2, 0, 0, 0, 0};
+    std::vector<int> thirds = {3, 0, 0, 0, 0};
+    std::vector<int> fourths = {4, 0, 0, 0, 0};
 
     cl::Buffer inputBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, input.size(), input.data());
     cl::Buffer chsBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, chs.size(), chs.data());
